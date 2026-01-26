@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả Bài tập JS</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            font-family: 'Consolas', 'Courier New', monospace;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #61dafb; 
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .log-box {
+            background-color: #000;
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap; 
+            font-size: 14px;
+        }
+        .highlight {
+            color: #ce9178; 
+        }
+        .number {
+            color: #b5cea8; 
+        }
+        .boolean {
+            color: #569cd6; 
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1> Kết quả chạy Code (Console Output)</h1>
+        <p>Dưới đây là kết quả từ file <code>baitap.js</code> của bạn:</p>
+        
+        <div id="result-screen" class="log-box">
+            </div>
+    </div>
+
+    <script>
+        (function () {
+            const oldLog = console.log;
+            const screen = document.getElementById('result-screen');
+
+            console.log = function (...args) {
+                oldLog.apply(console, args);
+                args.forEach(arg => {
+                    let output;
+                    if (typeof arg === 'object') {
+                        output = JSON.stringify(arg, null, 2); 
+                    } else {
+                        output = arg;
+                    }
+                    if (output === "true" || output === "false") {
+                        screen.innerHTML += `<span class='boolean'>${output}</span> `;
+                    } else if (!isNaN(output) && typeof arg !== 'object') {
+                        screen.innerHTML += `<span class='number'>${output}</span> `;
+                    } else {
+                        screen.innerHTML += output + " ";
+                    }
+                });
+                screen.innerHTML += "<br>"; 
+                screen.innerHTML += "<hr style='border-color: #333; margin: 5px 0;'>"; // Đường kẻ mờ
+            };
+        })();
+    </script>
+
+    <script src="baitap.js"></script>
+
+</body>
+</html>
